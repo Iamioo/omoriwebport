@@ -1,142 +1,108 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <base href="https://rawcdn.githack.com/genizy/web-port/5c578559bf738e50a13ce0ab05db778f925ad445/omori-fixed/">
-    <meta charset="UTF-8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="viewport" content="user-scalable=no">
-    <link rel="icon" href="icon/icon.png?fgjdfngjksdgnkdsjgn" type="image/png">
-    <link rel="apple-touch-icon" href="icon/icon.png?fgjdfngjksdgnkdsjgn">
-    <link rel="stylesheet" type="text/css" href="fonts/gamefont.css?fgjdfngjksdgnkdsjgn">
-    <title>OMORI</title>
+<base href="https://cdn.jsdelivr.net/gh/genizy/web-port@5c578559bf738e50a13ce0ab05db778f925ad445/omori-fixed/">
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<link rel="icon" href="icon/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="icon/icon.png">
+<link rel="stylesheet" type="text/css" href="fonts/gamefont.css">
+<title>OMORI Mobile</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
+#om-menu{position:fixed;top:max(8px,env(safe-area-inset-top));left:8px;z-index:10000001;width:44px;height:44px;border:2px solid #fff;border-radius:10px;background:#111;color:#fff;font-size:22px}
+#om-panel{position:fixed;top:0;left:0;bottom:0;width:320px;max-width:85vw;z-index:10000003;background:#0a0a0a;color:#fff;border-right:2px solid #fff;transform:translateX(-105%);transition:.25s;padding:16px;font-family:sans-serif;overflow:auto}
+#om-panel.open{transform:translateX(0)}
+#om-panel h2{letter-spacing:3px}.row{margin:18px 0}.row label{display:block;margin-bottom:7px;color:#ccc}
+.row input{width:100%}.om-btn{width:100%;padding:11px;margin:5px 0;background:#fff;color:#000;border:0;border-radius:8px;font-weight:800}
+#om-controls{position:fixed;inset:0;z-index:10000000;pointer-events:none;--s:1;--o:.9}
+.om-key{position:absolute;pointer-events:auto;width:72px;height:72px;border:2px solid #fffc;border-radius:50%;background:#0007;color:#fff;font:bold 22px sans-serif;transform:translate(-50%,-50%) scale(var(--s));opacity:var(--o);touch-action:none}
+#u{left:18%;top:62%}#d{left:18%;top:88%}#l{left:7%;top:75%}#r{left:29%;top:75%}
+#a{left:89%;top:70%;width:90px;height:90px}#b{left:75%;top:84%;width:64px;height:64px}
+</style>
 </head>
+<body style="background-color:black">
 
-<body style="background-color: black">
-    <script type="text/javascript" src="nipplejs.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="gamepad.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/plugins/aaa___bundle.js?fgjdfnghdfghjfgjhfgjfgjfjgjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="data.bundle.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="languages.en.bundle.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="maps.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/libs/js-yaml-master/jsyaml.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/libs/pixi.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/libs/pixi-tilemap.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/libs/pixi-picture.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/libs/lz-string.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/libs/iphone-inline-video.browser.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/rpg_core.js?sdfgsgdhrg3455346366rj5e6h456e6j"></script>
-    <script type="text/javascript" src="js/rpg_managers.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/rpg_objects.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/rpg_scenes.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/rpg_sprites.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/rpg_windows.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/plugins.js?fgjdfngjksdgnkdsjgn"></script>
-    <script type="text/javascript" src="js/main.js?fgjdfngjksdgnkdsjgn"></script>
-    <!-- gn math patch -->
-    <script>
-        // full screen the game ----------------------------------------------------------
-        function applycanvasmode() {
-            let w = 0;
-            let h = 0;
-            let maxW = window.innerWidth;
-            let maxH = window.innerHeight;
-            if ((maxW * 0.75) > maxH) {
-                h = maxH;
-                w = Math.floor((maxH / 3) * 4);
-            } else {
-                w = maxW;
-                h = Math.floor((maxW / 4) * 3);
-            }
-            document.querySelector("#GameCanvas").style.width = w + "px";
-            document.querySelector("#GameCanvas").style.height = h + "px";
-            document.querySelector("#GameVideo").style.width = w + "px";
-            document.querySelector("#GameVideo").style.height = h + "px";
-            document.querySelector("#UpperCanvas").style.width = w + "px";
-            document.querySelector("#UpperCanvas").style.height = h + "px";
-        }
-        setInterval(applycanvasmode, 100);
+<!-- Original loader from the working omori-fixed page -->
+<script type="text/javascript" src="nipplejs.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="gamepad.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/plugins/aaa___bundle.js?fgjdfnghdfghjfgjhfgjfgjfjgjksdgnkdsjgn"></script>
+<script type="text/javascript" src="data.bundle.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="languages.en.bundle.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="maps.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/libs/js-yaml-master/jsyaml.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/libs/pixi.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/libs/pixi-tilemap.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/libs/pixi-picture.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/libs/lz-string.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/libs/iphone-inline-video.browser.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/rpg_core.js?sdfgsgdhrg3455346366rj5e6h456e6j"></script>
+<script type="text/javascript" src="js/rpg_managers.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/rpg_objects.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/rpg_scenes.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/rpg_sprites.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/rpg_windows.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/plugins.js?fgjdfngjksdgnkdsjgn"></script>
+<script type="text/javascript" src="js/main.js?fgjdfngjksdgnkdsjgn"></script>
 
-        // support mobile ----------------------------------------------------------------
-        (function() {
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            if (!isMobile) {
-                return;
-            }
-            let i = setInterval(function() {
-                if (window.fullSetupComplete) {
-                    let zoneStatic = document.createElement("div");
-                    zoneStatic.style = "position: fixed; bottom: 0; left: 0; z-index: 9999; width: 500px; height: 500px;";
-                    let internal = document.createElement("div");
-                    internal.style = "position: relative; width: 100%; height: 100%;"
-                    zoneStatic.appendChild(internal);
-                    let joystick = nipplejs.create({
-                        mode: 'semi',
-                        zone: internal,
-                        color: 'red',
-                        catchDistance: 30
-                    });
-                    setTimeout(function() {
-                        joystick.on("dir", function(e, data) {
-                            let dirs = ["up", "down", "left", "right"];
-                            for (let o of dirs) {
-                                if (o !== data.direction.angle) {
-                                    fakeInput.up(o);
-                                } else {
-                                    fakeInput.down(o);
-                                }
-                            }
-                        });
-                        joystick.on("end", function() {
-                            let dirs = ["up", "down", "left", "right"];
-                            for (let o of dirs) {
-                                fakeInput.up(o);
-                            }
-                        });
-                    }, 100);
-                    document.body.appendChild(zoneStatic);
-                    const createButton = (text, key, bottom, right, bgColor) => {
-                        let button = document.createElement("div");
-                        button.style = `
-                    position: fixed; 
-                    bottom: ${bottom}; 
-                    right: ${right}; 
-                    width: 10vw; 
-                    height: 10vw; 
-                    background: ${bgColor}; 
-                    color: white; 
-                    touch-action: none; 
-                    z-index: 999999; 
-                    display: flex; 
-                    align-items: center; 
-                    justify-content: center; 
-                    font-family: sans-serif; 
-                    font-size: 3vw;
-                    border-radius: 50%;
-                `;
-                        button.innerText = text;
-                        button.addEventListener("touchstart", function(e) {
-                            e.preventDefault();
-                            fakeInput.down(key);
-                        });
-                        button.addEventListener("touchend", function(e) {
-                            e.preventDefault();
-                            fakeInput.up(key);
-                        });
-                        document.body.appendChild(button);
-                        return button;
-                    };
+<!-- Our UI is added after the original game loader -->
+<button id="om-menu">☰</button>
+<div id="om-panel">
+<h2>MENÜ</h2>
+<div class="row"><label>Button-Größe</label><input id="sz" type="range" min="65" max="160" value="100"></div>
+<div class="row"><label>Deckkraft</label><input id="op" type="range" min="20" max="100" value="90"></div>
+<button class="om-btn" id="hide">Steuerung ein/aus</button>
+<button class="om-btn" id="home">⌂ Zur Home-Seite</button>
+<button class="om-btn" id="close">Schließen</button>
+</div>
+<div id="om-controls">
+<button class="om-key" id="u">▲</button><button class="om-key" id="d">▼</button>
+<button class="om-key" id="l">◀</button><button class="om-key" id="r">▶</button>
+<button class="om-key" id="a">A</button><button class="om-key" id="b">B</button>
+</div>
 
-                    createButton("OK", "ok", "5vw", "5vw", "#0f08");
-                    createButton("ESC", "escape", "5vw", "15vw", "#f008");
-                    createButton("TAG", "tag", "15vw", "15vw", "#00f8");
-                    createButton("RUN", "shift", "15vw", "5vw", "#f0f8");
-                    clearInterval(i);
-                }
-            }, 100);
-        })();
-    </script>
+<script>
+// Keep the original canvas sizing behavior.
+function applycanvasmode(){
+ let w=0,h=0,maxW=innerWidth,maxH=innerHeight;
+ if((maxW*.75)>maxH){h=maxH;w=Math.floor((maxH/3)*4)}
+ else{w=maxW;h=Math.floor((maxW/4)*3)}
+ const c=document.querySelector("#GameCanvas"),v=document.querySelector("#GameVideo"),u=document.querySelector("#UpperCanvas");
+ if(c){c.style.width=w+"px";c.style.height=h+"px"}
+ if(v){v.style.width=w+"px";v.style.height=h+"px"}
+ if(u){u.style.width=w+"px";u.style.height=h+"px"}
+}
+setInterval(applycanvasmode,100);
+
+// Directly use the port's own fakeInput API.
+const binds={u:"up",d:"down",l:"left",r:"right",a:"ok",b:"escape"};
+for(const [id,key] of Object.entries(binds)){
+ const el=document.getElementById(id);
+ const down=e=>{e.preventDefault();e.stopPropagation();try{fakeInput.down(key)}catch(_){}};
+ const up=e=>{e.preventDefault();e.stopPropagation();try{fakeInput.up(key)}catch(_){}};
+ el.addEventListener("pointerdown",down,{passive:false});
+ el.addEventListener("pointerup",up,{passive:false});
+ el.addEventListener("pointercancel",up,{passive:false});
+ el.addEventListener("touchstart",down,{passive:false});
+ el.addEventListener("touchend",up,{passive:false});
+}
+
+const panel=document.getElementById("om-panel"),controls=document.getElementById("om-controls");
+document.getElementById("om-menu").onclick=()=>panel.classList.add("open");
+document.getElementById("close").onclick=()=>panel.classList.remove("open");
+document.getElementById("home").onclick=()=>location.href="https://iamioo.github.io/home";
+document.getElementById("hide").onclick=()=>controls.style.display=controls.style.display==="none"?"block":"none";
+
+const sz=document.getElementById("sz"),op=document.getElementById("op");
+sz.value=localStorage.omoriSize||100;op.value=localStorage.omoriOpacity||90;
+function applyUI(){
+ controls.style.setProperty("--s",sz.value/100);
+ controls.style.setProperty("--o",op.value/100);
+ localStorage.omoriSize=sz.value;localStorage.omoriOpacity=op.value;
+}
+sz.oninput=op.oninput=applyUI;applyUI();
+</script>
 </body>
-
 </html>
