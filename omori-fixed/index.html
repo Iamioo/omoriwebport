@@ -29,7 +29,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 <script type="text/javascript" src="nipplejs.js?fgjdfngjksdgnkdsjgn"></script>
 <script type="text/javascript" src="gamepad.js?fgjdfngjksdgnkdsjgn"></script>
 <script type="text/javascript" src="js/plugins/aaa___bundle.js?fgjdfnghdfghjfgjhfgjfgjfjgjksdgnkdsjgn"></script>
-<script type="text/javascript" src="js/plugins/web_plugin_fixes.js?v=621172f"></script>
+<script type="text/javascript" src="js/plugins/web_plugin_fixes.js?v=3"></script>
 <script type="text/javascript" src="data.bundle.js?fgjdfngjksdgnkdsjgn"></script>
 <script type="text/javascript" src="languages.en.bundle.js?fgjdfngjksdgnkdsjgn"></script>
 <script type="text/javascript" src="maps.js?fgjdfngjksdgnkdsjgn"></script>
@@ -92,9 +92,20 @@ function setGameInput(key,pressed){
   if(window.Input&&Input._currentState) Input._currentState[key]=pressed;
  }catch(_){}
 }
+function startGameFromTitle(){
+ try{
+  const scene=window.SceneManager&&SceneManager._scene;
+  if(scene&&scene.constructor&&scene.constructor.name==="Scene_OmoriTitleScreen"){
+   DataManager.setupNewGame();
+   SceneManager.goto(Scene_Map);
+   return true;
+  }
+ }catch(_){}
+ return false;
+}
 for(const [id,key] of Object.entries(binds)){
  const el=document.getElementById(id);
- const down=e=>{e.preventDefault();e.stopPropagation();setGameInput(key,true)};
+ const down=e=>{e.preventDefault();e.stopPropagation();setGameInput(key,true);if(key==="ok")startGameFromTitle()};
  const up=e=>{e.preventDefault();e.stopPropagation();setGameInput(key,false)};
  el.addEventListener("pointerdown",down,{passive:false});
  el.addEventListener("pointerup",up,{passive:false});

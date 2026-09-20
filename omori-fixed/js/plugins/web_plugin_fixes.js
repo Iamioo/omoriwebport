@@ -99,4 +99,12 @@ TouchInput._onMouseDown = function(event) {
 // credit-sprite factory after the plugin has been evaluated.
 window["data/js/plugins"]["Omori Title Screen.js"] += String.raw`
 Scene_OmoriTitleScreen.prototype.createVersionText = function() {};
+
+// Some builds replace the short version label at runtime with a longer port
+// credit. Suppress only those credit strings without affecting normal text.
+const _omoriWebDrawText = Bitmap.prototype.drawText;
+Bitmap.prototype.drawText = function(text) {
+    if (/breadbb|gn-math|port\s+(?:made\s+)?by|github\.io/i.test(String(text))) return;
+    return _omoriWebDrawText.apply(this, arguments);
+};
 `;
