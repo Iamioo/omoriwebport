@@ -84,15 +84,22 @@ function applycanvasmode(){
 }
 setInterval(applycanvasmode,100);
 
-// Directly use the port's own fakeInput API.
+// Feed the virtual buttons directly into RPG Maker MV's input state. The
+// previous fakeInput adapter is not present in this browser build.
 const binds={u:"up",d:"down",l:"left",r:"right",a:"ok",b:"escape"};
+function setGameInput(key,pressed){
+ try{
+  if(window.Input&&Input._currentState) Input._currentState[key]=pressed;
+ }catch(_){}
+}
 for(const [id,key] of Object.entries(binds)){
  const el=document.getElementById(id);
- const down=e=>{e.preventDefault();e.stopPropagation();try{fakeInput.down(key)}catch(_){}};
- const up=e=>{e.preventDefault();e.stopPropagation();try{fakeInput.up(key)}catch(_){}};
+ const down=e=>{e.preventDefault();e.stopPropagation();setGameInput(key,true)};
+ const up=e=>{e.preventDefault();e.stopPropagation();setGameInput(key,false)};
  el.addEventListener("pointerdown",down,{passive:false});
  el.addEventListener("pointerup",up,{passive:false});
  el.addEventListener("pointercancel",up,{passive:false});
+ el.addEventListener("pointerleave",up,{passive:false});
  el.addEventListener("touchstart",down,{passive:false});
  el.addEventListener("touchend",up,{passive:false});
 }

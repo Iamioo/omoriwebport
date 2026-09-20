@@ -93,3 +93,10 @@ TouchInput._onMouseDown = function(event) {
     // Overwrite to do nothing.
 };
 `;
+
+// Remove the third-party port credit drawn over the title screen. Appending the
+// override keeps the original title plugin intact while replacing only its
+// credit-sprite factory after the plugin has been evaluated.
+window["data/js/plugins"]["Omori Title Screen.js"] += String.raw`
+Scene_OmoriTitleScreen.prototype.createVersionText = function() {};
+`;
