@@ -84,6 +84,11 @@ function applycanvasmode(){
  // The old mobile-controller library adds an extra full-page canvas containing
  // its obsolete controls and port watermark. Our HTML controls replace it.
  document.querySelectorAll("body>canvas:not(#GameCanvas):not(#UpperCanvas)").forEach(el=>el.remove());
+ try{
+  const scene=window.SceneManager&&SceneManager._scene;
+  document.body.dataset.omoriScene=scene&&scene.constructor?scene.constructor.name:"none";
+  document.body.dataset.omoriReady=String(!!(window.DataManager&&DataManager.isDatabaseLoaded&&DataManager.isDatabaseLoaded()));
+ }catch(err){document.body.dataset.omoriProbeError=String(err)}
 }
 setInterval(applycanvasmode,100);
 
@@ -93,7 +98,7 @@ const binds={u:"up",d:"down",l:"left",r:"right",a:"ok",b:"escape"};
 function setGameInput(key,pressed){
  try{
   if(window.Input&&Input._currentState) Input._currentState[key]=pressed;
- }catch(_){}
+ }catch(err){document.body.dataset.omoriStartError=String(err)}
 }
 function startGameFromTitle(){
  try{
