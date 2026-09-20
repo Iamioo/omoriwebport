@@ -81,6 +81,9 @@ function applycanvasmode(){
  if(c){c.style.width=w+"px";c.style.height=h+"px"}
  if(v){v.style.width=w+"px";v.style.height=h+"px"}
  if(u){u.style.width=w+"px";u.style.height=h+"px"}
+ // The old mobile-controller library adds an extra full-page canvas containing
+ // its obsolete controls and port watermark. Our HTML controls replace it.
+ document.querySelectorAll("body>canvas:not(#GameCanvas):not(#UpperCanvas)").forEach(el=>el.remove());
 }
 setInterval(applycanvasmode,100);
 
@@ -95,7 +98,8 @@ function setGameInput(key,pressed){
 function startGameFromTitle(){
  try{
   const scene=window.SceneManager&&SceneManager._scene;
-  if(scene&&scene.constructor&&scene.constructor.name==="Scene_OmoriTitleScreen"){
+  if(window.DataManager&&window.SceneManager&&window.Scene_Map&&
+     !(scene instanceof Scene_Map)){
    DataManager.setupNewGame();
    SceneManager.goto(Scene_Map);
    return true;
