@@ -110,7 +110,7 @@ var $plugins =
 {"name":"Archeia_MessageCodes","status":true,"description":"Plugin Description <Archeia_MessageCodes>","parameters":{"Variable Set Code":"Var","Variable Add Code":"VarA","Variable Sub Code":"VarS","Variable Mul Code":"VarX","Variable Div Code":"VarD","Variable Mod Code":"VarM","Common Event Code":"Com"}},
 {"name":"Liquid_EventData","status":true,"description":"v1.0 Easibly add saveable data to events","parameters":{}},
 {"name":"Liquid_EventIcons","status":true,"description":"v2 adds persistent balloon icons.","parameters":{"---General---":"","Icon Width":"32","Icon Height":"24","Default Sprite Sheet":"quest","Speed":"16","Wait Time":"64"}},
-{"name":"GALV_AnimatedSplashScreens","status":true,"description":"(v.1.1) Set up animated splash screens that show before the title screen.","parameters":{"----- SPLASH SCREENS -----":"","Splash Images":"splashGalv,200,3,314|splashGalv2,200,3,314","Splash Background":"splashBg","Splash Skip":"ONE"}},
+{"name":"GALV_AnimatedSplashScreens","status":false,"description":"(v.1.1) Set up animated splash screens that show before the title screen.","parameters":{"----- SPLASH SCREENS -----":"","Splash Images":"splashGalv,200,3,314|splashGalv2,200,3,314","Splash Background":"splashBg","Splash Skip":"ONE"}},
 {"name":"--------------------","status":false,"description":"------------------------------------------------------------","parameters":{}},
 {"name":"Atlas Loader","status":true,"description":"Atlas loading BETA.","parameters":{}},
 {"name":"Omori BASE","status":true,"description":"Contains base functions and standards for OMORI.","parameters":{}},
